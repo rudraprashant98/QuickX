@@ -3,6 +3,10 @@
 It’s a FastAPI + PostgreSQL + Redis + RabbitMQ/MQTT stack that plans robot paths, tracks execution, and streams telemetry in real time. Point it at a wall layout, sprinkle in obstacles, hit the planner, and watch the robot follow along while you keep an eye on metrics and logs.
 
 ---
+## Demo Video
+<a href="https://drive.google.com/file/d/1L1NJLyZvBsgHGJL4hXLAqIIW98b0epoE/view?usp=sharing" target="_blank">
+  ▶️ Watch Demo Video
+</a>
 
 ## Before You Dive In
 
