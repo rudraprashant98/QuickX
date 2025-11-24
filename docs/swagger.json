@@ -1,0 +1,953 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "Robotics RT Stack",
+        "version": "0.1.0"
+    },
+    "paths": {
+        "/walls/": {
+            "get": {
+                "tags": [
+                    "walls"
+                ],
+                "summary": "List Walls",
+                "operationId": "list_walls_walls__get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/WallRead"
+                                    },
+                                    "type": "array",
+                                    "title": "Response List Walls Walls  Get"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "walls"
+                ],
+                "summary": "Create Wall",
+                "operationId": "create_wall_walls__post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/WallCreate"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WallRead"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/obstacles/": {
+            "post": {
+                "tags": [
+                    "obstacles"
+                ],
+                "summary": "Create Obstacle",
+                "operationId": "create_obstacle_obstacles__post",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ObstacleCreate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ObstacleRead"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "obstacles"
+                ],
+                "summary": "List Obstacles",
+                "operationId": "list_obstacles_obstacles__get",
+                "parameters": [
+                    {
+                        "name": "wall_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "integer"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "title": "Wall Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ObstacleRead"
+                                    },
+                                    "title": "Response List Obstacles Obstacles  Get"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/plans/": {
+            "get": {
+                "tags": [
+                    "plans"
+                ],
+                "summary": "List Plans",
+                "operationId": "list_plans_plans__get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/PathPlanRead"
+                                    },
+                                    "type": "array",
+                                    "title": "Response List Plans Plans  Get"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "plans"
+                ],
+                "summary": "Create Plan",
+                "operationId": "create_plan_plans__post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PathPlanCreate"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PathPlanRead"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/plans/generate": {
+            "post": {
+                "tags": [
+                    "plans"
+                ],
+                "summary": "Generate Plan",
+                "operationId": "generate_plan_plans_generate_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PlanGenerationRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PathPlanRead"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/robot/command": {
+            "post": {
+                "tags": [
+                    "robot"
+                ],
+                "summary": "Issue Command",
+                "operationId": "issue_command_robot_command_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RobotCommand"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/robot/state": {
+            "get": {
+                "tags": [
+                    "robot"
+                ],
+                "summary": "Get State",
+                "operationId": "get_state_robot_state_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "anyOf": [
+                                        {
+                                            "$ref": "#/components/schemas/RobotStateRead"
+                                        },
+                                        {
+                                            "type": "null"
+                                        }
+                                    ],
+                                    "title": "Response Get State Robot State Get"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "robot"
+                ],
+                "summary": "Update State",
+                "operationId": "update_state_robot_state_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RobotStateCreate"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RobotStateRead"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/runs/": {
+            "get": {
+                "tags": [
+                    "runs"
+                ],
+                "summary": "List Runs",
+                "operationId": "list_runs_runs__get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/ExecutionRunRead"
+                                    },
+                                    "type": "array",
+                                    "title": "Response List Runs Runs  Get"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "runs"
+                ],
+                "summary": "Create Run",
+                "operationId": "create_run_runs__post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ExecutionRunCreate"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExecutionRunRead"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/runs/{run_id}": {
+            "get": {
+                "tags": [
+                    "runs"
+                ],
+                "summary": "Get Run",
+                "operationId": "get_run_runs__run_id__get",
+                "parameters": [
+                    {
+                        "name": "run_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Run Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExecutionRunRead"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/metrics/": {
+            "get": {
+                "tags": [
+                    "metrics"
+                ],
+                "summary": "Prometheus Metrics",
+                "operationId": "prometheus_metrics_metrics__get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "ExecutionRunCreate": {
+                "properties": {
+                    "plan_id": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Plan Id"
+                    },
+                    "status": {
+                        "type": "string",
+                        "title": "Status"
+                    },
+                    "telemetry": {
+                        "additionalProperties": true,
+                        "type": "object",
+                        "title": "Telemetry"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "plan_id",
+                    "status",
+                    "telemetry"
+                ],
+                "title": "ExecutionRunCreate"
+            },
+            "ExecutionRunRead": {
+                "properties": {
+                    "plan_id": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Plan Id"
+                    },
+                    "status": {
+                        "type": "string",
+                        "title": "Status"
+                    },
+                    "telemetry": {
+                        "additionalProperties": true,
+                        "type": "object",
+                        "title": "Telemetry"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "title": "Id"
+                    },
+                    "started_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "Started At"
+                    },
+                    "finished_at": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "date-time"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Finished At"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "plan_id",
+                    "status",
+                    "telemetry",
+                    "id",
+                    "started_at",
+                    "finished_at"
+                ],
+                "title": "ExecutionRunRead"
+            },
+            "HTTPValidationError": {
+                "properties": {
+                    "detail": {
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationError"
+                        },
+                        "type": "array",
+                        "title": "Detail"
+                    }
+                },
+                "type": "object",
+                "title": "HTTPValidationError"
+            },
+            "ObstacleCreate": {
+                "properties": {
+                    "wall_id": {
+                        "type": "integer",
+                        "title": "Wall Id"
+                    },
+                    "geometry": {
+                        "additionalProperties": true,
+                        "type": "object",
+                        "title": "Geometry"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "wall_id",
+                    "geometry"
+                ],
+                "title": "ObstacleCreate"
+            },
+            "ObstacleRead": {
+                "properties": {
+                    "wall_id": {
+                        "type": "integer",
+                        "title": "Wall Id"
+                    },
+                    "geometry": {
+                        "additionalProperties": true,
+                        "type": "object",
+                        "title": "Geometry"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "title": "Id"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "Created At"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "wall_id",
+                    "geometry",
+                    "id",
+                    "created_at"
+                ],
+                "title": "ObstacleRead"
+            },
+            "PathPlanCreate": {
+                "properties": {
+                    "wall_id": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Wall Id"
+                    },
+                    "waypoints": {
+                        "items": {
+                            "type": "number"
+                        },
+                        "type": "array",
+                        "title": "Waypoints"
+                    },
+                    "cost": {
+                        "type": "number",
+                        "title": "Cost"
+                    },
+                    "algorithm": {
+                        "type": "string",
+                        "pattern": "^[A-Za-z0-9_]+$",
+                        "title": "Algorithm"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "wall_id",
+                    "waypoints",
+                    "cost",
+                    "algorithm"
+                ],
+                "title": "PathPlanCreate"
+            },
+            "PathPlanRead": {
+                "properties": {
+                    "wall_id": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Wall Id"
+                    },
+                    "waypoints": {
+                        "items": {
+                            "type": "number"
+                        },
+                        "type": "array",
+                        "title": "Waypoints"
+                    },
+                    "cost": {
+                        "type": "number",
+                        "title": "Cost"
+                    },
+                    "algorithm": {
+                        "type": "string",
+                        "pattern": "^[A-Za-z0-9_]+$",
+                        "title": "Algorithm"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "title": "Id"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "Created At"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "wall_id",
+                    "waypoints",
+                    "cost",
+                    "algorithm",
+                    "id",
+                    "created_at"
+                ],
+                "title": "PathPlanRead"
+            },
+            "PlanGenerationRequest": {
+                "properties": {
+                    "wall_geometry": {
+                        "additionalProperties": true,
+                        "type": "object",
+                        "title": "Wall Geometry"
+                    },
+                    "obstacles": {
+                        "items": {
+                            "additionalProperties": true,
+                            "type": "object"
+                        },
+                        "type": "array",
+                        "title": "Obstacles"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "wall_geometry"
+                ],
+                "title": "PlanGenerationRequest"
+            },
+            "RobotCommand": {
+                "properties": {
+                    "command": {
+                        "type": "string",
+                        "title": "Command"
+                    },
+                    "x": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "X"
+                    },
+                    "y": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Y"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "command",
+                    "x",
+                    "y"
+                ],
+                "title": "RobotCommand"
+            },
+            "RobotStateCreate": {
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "title": "Status"
+                    },
+                    "position": {
+                        "additionalProperties": true,
+                        "type": "object",
+                        "title": "Position"
+                    },
+                    "velocity": {
+                        "type": "number",
+                        "title": "Velocity"
+                    },
+                    "battery": {
+                        "type": "number",
+                        "title": "Battery"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "status",
+                    "position",
+                    "velocity",
+                    "battery"
+                ],
+                "title": "RobotStateCreate"
+            },
+            "RobotStateRead": {
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "title": "Status"
+                    },
+                    "position": {
+                        "additionalProperties": true,
+                        "type": "object",
+                        "title": "Position"
+                    },
+                    "velocity": {
+                        "type": "number",
+                        "title": "Velocity"
+                    },
+                    "battery": {
+                        "type": "number",
+                        "title": "Battery"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "title": "Id"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "Updated At"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "status",
+                    "position",
+                    "velocity",
+                    "battery",
+                    "id",
+                    "updated_at"
+                ],
+                "title": "RobotStateRead"
+            },
+            "ValidationError": {
+                "properties": {
+                    "loc": {
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        "type": "array",
+                        "title": "Location"
+                    },
+                    "msg": {
+                        "type": "string",
+                        "title": "Message"
+                    },
+                    "type": {
+                        "type": "string",
+                        "title": "Error Type"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "loc",
+                    "msg",
+                    "type"
+                ],
+                "title": "ValidationError"
+            },
+            "WallCreate": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "title": "Name"
+                    },
+                    "geometry": {
+                        "additionalProperties": true,
+                        "type": "object",
+                        "title": "Geometry"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "geometry"
+                ],
+                "title": "WallCreate"
+            },
+            "WallRead": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "title": "Name"
+                    },
+                    "geometry": {
+                        "additionalProperties": true,
+                        "type": "object",
+                        "title": "Geometry"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "title": "Id"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "Created At"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "geometry",
+                    "id",
+                    "created_at"
+                ],
+                "title": "WallRead"
+            }
+        }
+    }
+}

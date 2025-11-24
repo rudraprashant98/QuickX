@@ -1,0 +1,453 @@
+{
+	"info": {
+		"_postman_id": "robotics-api-collection",
+		"name": "Robotics RT Stack API",
+		"description": "Complete API collection for Robotics Real-Time Control Stack",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Health Check",
+			"item": [
+				{
+					"name": "API Docs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/docs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"docs"
+							]
+						},
+						"description": "FastAPI automatic API documentation"
+					}
+				},
+				{
+					"name": "Metrics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/metrics",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"metrics"
+							]
+						},
+						"description": "Prometheus metrics endpoint"
+					}
+				}
+			]
+		},
+		{
+			"name": "Walls",
+			"item": [
+				{
+					"name": "Create Wall",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Living Room Wall\",\n  \"geometry\": {\n    \"boundary\": [\n      [0, 0],\n      [10, 0],\n      [10, 5],\n      [0, 5]\n    ]\n  }\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/walls/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"walls",
+								""
+							]
+						},
+						"description": "Create a new wall with boundary geometry"
+					}
+				},
+				{
+					"name": "List Walls",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/walls/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"walls",
+								""
+							]
+						},
+						"description": "Get all walls"
+					}
+				}
+			]
+		},
+		{
+			"name": "Obstacles",
+			"item": [
+				{
+					"name": "Create Obstacle",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"wall_id\": 1,\n  \"geometry\": {\n    \"boundary\": [\n      [2, 2],\n      [4, 2],\n      [4, 3],\n      [2, 3]\n    ]\n  }\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/obstacles/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"obstacles",
+								""
+							]
+						},
+						"description": "Create an obstacle on a wall"
+					}
+				},
+				{
+					"name": "List Obstacles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/obstacles/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"obstacles",
+								""
+							]
+						},
+						"description": "Get all obstacles"
+					}
+				}
+			]
+		},
+		{
+			"name": "Plans",
+			"item": [
+				{
+					"name": "Generate Path Plan",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"wall_geometry\": {\n    \"boundary\": [\n      [0, 0],\n      [10, 0],\n      [10, 5],\n      [0, 5]\n    ]\n  },\n  \"obstacles\": [\n    {\n      \"boundary\": [\n        [2, 2],\n        [4, 2],\n        [4, 3],\n        [2, 3]\n      ]\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/plans/generate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"plans",
+								"generate"
+							]
+						},
+						"description": "Generate a path plan using A* and Genetic algorithms"
+					}
+				},
+				{
+					"name": "Create Plan",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"wall_id\": 1,\n  \"waypoints\": [0.0, 0.0, 1.0, 0.0, 2.0, 0.0, 3.0, 0.0, 4.0, 0.0],\n  \"cost\": 4.0,\n  \"algorithm\": \"astar\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/plans/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"plans",
+								""
+							]
+						},
+						"description": "Create a path plan manually"
+					}
+				},
+				{
+					"name": "List Plans",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/plans/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"plans",
+								""
+							]
+						},
+						"description": "Get all path plans"
+					}
+				}
+			]
+		},
+		{
+			"name": "Robot",
+			"item": [
+				{
+					"name": "Send Command",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"command\": \"move\",\n  \"x\": 5.0,\n  \"y\": 3.0\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/robot/command",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"robot",
+								"command"
+							]
+						},
+						"description": "Send a command to the robot (published to MQTT/RabbitMQ)"
+					}
+				},
+				{
+					"name": "Update Robot State",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"moving\",\n  \"position\": {\n    \"x\": 5.0,\n    \"y\": 3.0,\n    \"z\": 0.0\n  },\n  \"velocity\": 0.5,\n  \"battery\": 85.0\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/robot/state",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"robot",
+								"state"
+							]
+						},
+						"description": "Update robot state (broadcasts to WebSocket clients)"
+					}
+				},
+				{
+					"name": "Get Robot State",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/robot/state",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"robot",
+								"state"
+							]
+						},
+						"description": "Get current robot state"
+					}
+				}
+			]
+		},
+		{
+			"name": "Execution Runs",
+			"item": [
+				{
+					"name": "Create Run",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"plan_id\": 1,\n  \"status\": \"running\",\n  \"telemetry\": {\n    \"progress\": 0.5,\n    \"current_waypoint\": 3\n  }\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/runs/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"runs",
+								""
+							]
+						},
+						"description": "Create an execution run"
+					}
+				},
+				{
+					"name": "List Runs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/runs/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"runs",
+								""
+							]
+						},
+						"description": "Get all execution runs"
+					}
+				},
+				{
+					"name": "Get Run by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/runs/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"runs",
+								"1"
+							]
+						},
+						"description": "Get a specific execution run"
+					}
+				}
+			]
+		},
+		{
+			"name": "Realtime Streams",
+			"item": [
+				{
+					"name": "Telemetry WebSocket",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "ws://localhost:8000/ws/telemetry",
+							"protocol": "ws",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"ws",
+								"telemetry"
+							]
+						},
+						"description": "WebSocket endpoint for real-time telemetry updates"
+					}
+				},
+				{
+					"name": "Path WebSocket",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "ws://localhost:8000/ws/path",
+							"protocol": "ws",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"ws",
+								"path"
+							]
+						},
+						"description": "WebSocket endpoint for real-time path updates"
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"type": "string"
+		}
+	]
+}

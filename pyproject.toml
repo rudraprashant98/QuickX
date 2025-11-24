@@ -1,0 +1,52 @@
+[project]
+name = "robotics-rt-stack"
+version = "0.1.0"
+description = "Robotics near real-time control stack"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi",
+    "uvicorn[standard]",
+    "pydantic[email]",
+    "sqlalchemy[asyncio]",
+    "asyncpg",
+    "psycopg[pool]",
+    "alembic",
+    "redis",
+    "aioredis",
+    "celery[redis]",
+    "pika",
+    "paho-mqtt",
+    "numpy",
+    "scipy",
+    "shapely",
+    "orjson",
+    "python-json-logger",
+    "prometheus-client",
+    "httpx",
+    "requests",
+    "pytest",
+    "pytest-asyncio",
+    "pytest-cov"
+]
+
+[tool.pytest.ini_options]
+addopts = "-q -m \"not slow\" -W ignore::urllib3.exceptions.NotOpenSSLWarning"
+asyncio_mode = "auto"
+pythonpath = ["."]
+testpaths = ["tests"]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore::pytest.PytestUnhandledThreadExceptionWarning",
+    "ignore::UserWarning",
+    "ignore:.*NotOpenSSLWarning.*",
+    "ignore:.*on_event is deprecated.*",
+    "ignore:.*dict method is deprecated.*",
+    "ignore:.*Callback API version 1 is deprecated.*",
+    "ignore:.*Use 'content=.*",
+    "ignore:urllib3.exceptions.NotOpenSSLWarning",
+    "ignore::urllib3.exceptions.NotOpenSSLWarning",
+]
